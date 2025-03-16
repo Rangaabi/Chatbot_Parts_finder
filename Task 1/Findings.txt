@@ -1,0 +1,45 @@
+## Project Documentation and Justification
+
+### Overview
+
+This project builds a chatbot application that retrieves similar technical parts based on their descriptions and generates context-aware answers using a combination of modern NLP models and libraries. The system is structured into distinct modules: data preprocessing, document chunking, embedding generation, similarity search, and response generation. Additionally, the project includes evaluation functions that compare generated responses against reference answers using metrics such as BLEU, ROUGE-L, and BERTScore.
+
+### Model Selection
+
+- **BAAI/bge-small-en-v1.5 (Priority Model):**  
+  We have prioritized the **BAAI/bge-small-en-v1.5** embedding model because it has proven to generate accurate answers across all test cases. Its robust language understanding and semantic representation capabilities ensure that it captures the nuances in technical parts descriptions, leading to high-quality similarity matching and effective context generation for the language model.
+
+- **Alternative Models (For Experimentation):**  
+  While we have also experimented with models like **All-MiniLM-L6-v2** and **all-mpnet-base-v2**, the BAAI model consistently outperformed them in terms of generating relevant answers. The alternatives can be used for comparative studies, but the BAAI model remains our primary choice for production due to its superior performance.
+
+### Package and Library Justifications
+
+- **Pandas & NumPy:**  
+  - **Pandas** is used for efficient data manipulation and CSV file processing, which is essential for handling technical parts data.
+  - **NumPy** supports numerical operations and array manipulations, which are crucial for handling embeddings and other numerical computations.
+
+- **Regex (`re`):**  
+  - The `re` module is employed for text preprocessing tasks such as lowercasing and removing special characters, ensuring that the input text is standardized.
+
+- **SentenceTransformers:**  
+  - This package provides a straightforward interface to generate high-quality sentence embeddings using pre-trained models. It allows us to switch between different models (BAAI, All-MiniLM, MPNet) easily and is critical for semantic similarity search.
+
+- **FAISS:**  
+  - **FAISS** (Facebook AI Similarity Search) is used to build an efficient index for approximate nearest neighbor searches. This enables fast retrieval of similar document chunks even from large datasets, enhancing the system's responsiveness.
+
+- **Transformers & PyTorch:**  
+  - **Transformers** from HuggingFace, along with **PyTorch**, are used to load and run the language model (`microsoft/Phi-3.5-mini-instruct`) for generating context-aware responses. This integration leverages the state-of-the-art natural language generation capabilities provided by modern deep learning frameworks.
+
+- **Gradio:**  
+  - **Gradio** is used to build an interactive web interface for the chatbot, which simplifies testing and demonstration of the model's capabilities to end users.
+
+- **Scikit-learn (sklearn):**  
+  - The normalization function from `sklearn.preprocessing` ensures that the generated embeddings are normalized. This is particularly important for cosine similarity computations, which underpin the FAISS search mechanism.
+
+- **NLTK, ROUGE, and BERTScore:**  
+  - **NLTK** is used for BLEU score computation with smoothing functions.
+  - **ROUGE** and **BERTScore** provide additional metrics for evaluating the quality of generated responses. Together, these packages offer a robust framework for performance evaluation and fine-tuning.
+
+### Conclusion
+
+By integrating these carefully selected packages and prioritizing the **BAAI/bge-small-en-v1.5** model, the system efficiently processes technical descriptions, retrieves semantically similar parts, and generates accurate, context-aware responses. This combination of high-quality embeddings and state-of-the-art language models provides a robust solution that meets the demands of real-world technical parts assistance applications.
