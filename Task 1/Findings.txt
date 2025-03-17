@@ -1,45 +1,35 @@
-## Project Documentation and Justification
+Project Documentation and Justification
+Overview
+This project builds a chatbot that helps retrieve technical parts based on their descriptions and also provides general answers. The system is divided into modules: data preprocessing, document chunking, generating embeddings, similarity search, and response generation. We evaluate its performance using BLEU, ROUGE-L, and BERTScore.
 
-### Overview
+Model Selection
+Primary Model: BAAI/bge-small-en-v1.5
+This model gives the best results when finding similar parts and generating responses. It understands language well and captures the details in technical descriptions, making it our first choice.
 
-This project builds a chatbot application that retrieves similar technical parts based on their descriptions and generates context-aware answers using a combination of modern NLP models and libraries. The system is structured into distinct modules: data preprocessing, document chunking, embedding generation, similarity search, and response generation. Additionally, the project includes evaluation functions that compare generated responses against reference answers using metrics such as BLEU, ROUGE-L, and BERTScore.
+Alternative Models:
+We tested All-MiniLM-L6-v2 and all-mpnet-base-v2, but the BAAI model consistently performed better. The alternatives can still be used for comparison, but they won’t be our main focus.
 
-### Model Selection
+Why We Didn’t Use LLaMA and Mistral:
+These models have gated repositories, which require approvals, and we had limited time to experiment with them.
 
-- **BAAI/bge-small-en-v1.5 (Priority Model):**  
-  We have prioritized the **BAAI/bge-small-en-v1.5** embedding model because it has proven to generate accurate answers across all test cases. Its robust language understanding and semantic representation capabilities ensure that it captures the nuances in technical parts descriptions, leading to high-quality similarity matching and effective context generation for the language model.
+Future Possibilities:
+With a higher budget, we could explore more advanced models like GPT-4, Claude 3 (Anthropic) ,Gemini 1.5 for better response generation.
 
-- **Alternative Models (For Experimentation):**  
-  While we have also experimented with models like **All-MiniLM-L6-v2** and **all-mpnet-base-v2**, the BAAI model consistently outperformed them in terms of generating relevant answers. The alternatives can be used for comparative studies, but the BAAI model remains our primary choice for production due to its superior performance.
+Why We Chose These Libraries
+Pandas & NumPy – For handling data efficiently, especially CSV files and numerical computations.
+Regex (re) – For cleaning text by removing special characters and standardizing input.
+SentenceTransformers – For creating embeddings that help find similar descriptions.
+FAISS – For quickly searching large datasets and retrieving relevant parts.
+Transformers & PyTorch – To load and run the microsoft/Phi-3.5-mini-instruct model for generating responses.
+Gradio – To create an easy-to-use web interface for testing the chatbot.
+Scikit-learn – To normalize embeddings, making similarity searches more accurate.
+NLTK, ROUGE & BERTScore – To measure how good the chatbot’s answers are.
+Additional Considerations
+General Knowledge Answers:
+The chatbot doesn’t just retrieve technical parts—it can also answer general questions. This makes it more useful for broader applications beyond technical searches.
 
-### Package and Library Justifications
+Scalability & Future Enhancements:
+The current setup is efficient, but with more computing power and resources, we could integrate larger generative models, improve response accuracy, and expand to multimodal capabilities (e.g., images and text).
 
-- **Pandas & NumPy:**  
-  - **Pandas** is used for efficient data manipulation and CSV file processing, which is essential for handling technical parts data.
-  - **NumPy** supports numerical operations and array manipulations, which are crucial for handling embeddings and other numerical computations.
-
-- **Regex (`re`):**  
-  - The `re` module is employed for text preprocessing tasks such as lowercasing and removing special characters, ensuring that the input text is standardized.
-
-- **SentenceTransformers:**  
-  - This package provides a straightforward interface to generate high-quality sentence embeddings using pre-trained models. It allows us to switch between different models (BAAI, All-MiniLM, MPNet) easily and is critical for semantic similarity search.
-
-- **FAISS:**  
-  - **FAISS** (Facebook AI Similarity Search) is used to build an efficient index for approximate nearest neighbor searches. This enables fast retrieval of similar document chunks even from large datasets, enhancing the system's responsiveness.
-
-- **Transformers & PyTorch:**  
-  - **Transformers** from HuggingFace, along with **PyTorch**, are used to load and run the language model (`microsoft/Phi-3.5-mini-instruct`) for generating context-aware responses. This integration leverages the state-of-the-art natural language generation capabilities provided by modern deep learning frameworks.
-
-- **Gradio:**  
-  - **Gradio** is used to build an interactive web interface for the chatbot, which simplifies testing and demonstration of the model's capabilities to end users.
-
-- **Scikit-learn (sklearn):**  
-  - The normalization function from `sklearn.preprocessing` ensures that the generated embeddings are normalized. This is particularly important for cosine similarity computations, which underpin the FAISS search mechanism.
-
-- **NLTK, ROUGE, and BERTScore:**  
-  - **NLTK** is used for BLEU score computation with smoothing functions.
-  - **ROUGE** and **BERTScore** provide additional metrics for evaluating the quality of generated responses. Together, these packages offer a robust framework for performance evaluation and fine-tuning.
-
-### Conclusion
-
-By integrating these carefully selected packages and prioritizing the **BAAI/bge-small-en-v1.5** model, the system efficiently processes technical descriptions, retrieves semantically similar parts, and generates accurate, context-aware responses. This combination of high-quality embeddings and state-of-the-art language models provides a robust solution that meets the demands of real-world technical parts assistance applications.
+Conclusion
+By combining these tools and prioritizing the BAAI/bge-small-en-v1.5 model, i ensure that the chatbot effectively finds the right technical parts and gives useful answers—including general knowledge queries. While we didn’t use LLaMA or Mistral due to time and access constraints, future work could explore more powerful models like GPT-4 for even better performance
